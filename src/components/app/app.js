@@ -3,15 +3,20 @@ import {MainPage, CartPage} from '../pages';
 import AppHeader from '../app-header';
 
 import Background from './food-bg.jpg';
+import { Route, Switch } from 'react-router';
+import WithRestoService from '../hoc'
 
-const App = () => {
+const App = ({RestoService}) => {
+    console.log(RestoService.getMenuItems())
     return (
         <div style={{background: `url(${Background}) center center/cover no-repeat`}} className="app">
             <AppHeader total={50}/>
-            <MainPage/>
-            <CartPage/>
+            <Switch>
+                <Route path='/' exact component={MainPage}/>
+                <Route path='/cart' component={CartPage}/>
+            </Switch>
         </div>
     )
 }
 
-export default App;
+export default WithRestoService()(App);
