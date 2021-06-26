@@ -5,29 +5,23 @@ import MenuListItem from '../menu-list-item';
 import { menuLoaded } from '../../actions';
 import './menu-list.scss';
 
+const MenuList = ({ RestoService, setMenuToStore, menuItems }) => { // классовый компонент ниже в комментах
+    
+    useEffect(() => {
+        RestoService.getMenuItems()
+            .then(res => setMenuToStore(res))
+    }, [])
 
-class MenuList extends Component {
-
-    componentDidMount() {
-        this.props.RestoService.getMenuItems()
-            .then(res => this.props.setMenuToStore(res))
-
-    }
-
-    render() {
-        const { menuItems } = this.props;
-
-        return (
-            <ul className="menu__list">
-                {menuItems.map(item => {
-                    return (
-                        <MenuListItem key={item.id} menuItem={item} />
-                    )
-                })}
-            </ul>
-        )
-    }
-};
+    return (
+        <ul className="menu__list">
+            {menuItems.map(item => {
+                return (
+                    <MenuListItem key={item.id} menuItem={item} />
+                )
+            })}
+        </ul>
+    )
+}
 
 const mapStateToProps = (state) => { // получаем из стора (редакс -конеект)
     return { menuItems: state.menu }
