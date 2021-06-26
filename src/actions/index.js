@@ -4,3 +4,13 @@ export const menuLoaded = (newState) => {
         payload: newState
     }
 }
+export const menuRequeted = () => {
+    return {
+        type: 'MENU_REQUESTED'
+    }
+}
+export const menuError = () => {
+    return {
+        type: 'MENU_ERROR'
+    }
+}
