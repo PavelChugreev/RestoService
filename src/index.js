@@ -12,7 +12,6 @@ import store from './store'
 import './index.scss';
 
 const restoService = new RestoService();
-console.log(restoService)
 
 ReactDOM.render(
     <Provider store={store}>
