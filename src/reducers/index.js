@@ -8,7 +8,8 @@ const reducer = (state = initialState, action) => {
         case 'MENU_LOADED':
             return {
                 menu: action.payload,
-                loading: false
+                loading: false,
+                error: false
             }
         case 'MENU_REQUESTED':
             return {

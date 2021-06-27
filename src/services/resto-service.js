@@ -9,6 +9,6 @@ export default class RestoService {
             throw new Error('Hand ERR')
         }
 
-        return response.json()
+        return await response.json()
     }
 } 

@@ -1,14 +1,13 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import WithRestoService from '../hoc';
 import MenuListItem from '../menu-list-item';
-import { menuLoaded, menuRequeted, menuError } from '../../actions';
+import { menuLoaded, menuRequested, menuError } from '../../actions';
 import Spinner from '../spinner/'
 import Error from '../error/'
 import './menu-list.scss';
 
 const MenuList = ({ RestoService, setMenuToStore, setLoading, setError, menuItems, loading, error }) => { // классовый компонент ниже в комментах
-    console.log(loading)
     useEffect(() => {
         setLoading();
         RestoService.getMenuItems()
@@ -16,11 +15,11 @@ const MenuList = ({ RestoService, setMenuToStore, setLoading, setError, menuItem
             .catch(err => setError())
     }, [])
 
-    if(loading) {
-        return <Spinner/>
+    if (loading) {
+        return <Spinner />
     }
-    if(error) {
-        return <Error/>
+    if (error) {
+        return <Error />
     }
 
     return (
@@ -35,7 +34,7 @@ const MenuList = ({ RestoService, setMenuToStore, setLoading, setError, menuItem
 }
 
 const mapStateToProps = (state) => { // получаем из стора (редакс -конеект)
-    return { 
+    return {
         menuItems: state.menu,
         loading: state.loading,
         error: state.error
@@ -45,13 +44,13 @@ const mapStateToProps = (state) => { // получаем из стора (ред
 const mapDispatchToProps = (dispatch) => { //записываем в стор с помощью фции  setMenuTStore
     return {
         setMenuToStore: (newState) => dispatch(menuLoaded(newState)),
-        setLoading: () => dispatch(menuRequeted()),
+        setLoading: () => dispatch(menuRequested()),
         setError: () => dispatch(menuError())
     }
 }
 // const mapDispatchToProps = {
 //     setMenuToStore: menuLoaded, //передаем простоназвание action-creator'a
-//     setLoading: menuRequeted
+//     setLoading: menuRequested
 //     setError: menuError
 // }
 

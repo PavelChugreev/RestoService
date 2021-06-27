@@ -4,7 +4,7 @@ export const menuLoaded = (newState) => {
         payload: newState
     }
 }
-export const menuRequeted = () => {
+export const menuRequested = () => {
     return {
         type: 'MENU_REQUESTED'
     }
