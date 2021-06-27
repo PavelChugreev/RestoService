@@ -11,6 +11,7 @@ const CartTable = ({cartItems, deleteItemFromCartItems}) => {
                 <img src={item.url} className="cart__item-img" alt={item.title}></img>
                 <div className="cart__item-title">{item.title}</div>
                 <div className="cart__item-price">{item.price}$</div>
+                <div className="cart__item-count">{item.count}{'шт'}</div>
                 <div className="cart__close"
                     onClick={() => deleteItemFromCartItems(item.id)}
                 >&times;</div>

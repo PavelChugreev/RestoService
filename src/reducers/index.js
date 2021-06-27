@@ -14,21 +14,45 @@ const reducer = (state = initialState, action) => {
                 error: false
             }
         case 'ADD_TO_CART':
-            const item = state.menu.find(el => el.id == action.payload);
-            return {
-                ...state,
-                cartItems: [...state.cartItems, item] 
-            }
-        case 'DELETE_FROM_CART':
-            const id = action.payload
-            const index = state.cartItems.findIndex(item => item.id == id);
+            
+            const index = state.cartItems.findIndex(item => item.id == action.payload);
+             console.log(index)
 
             if(index >= 0){
+                const itemInState = state.menu.find(el => el.id == action.payload);
+                console.log(itemInState)
+                const newItem = {
+                    ...itemInState, 
+                    count: ++itemInState.count
+                }
                 return {
                     ...state,
                     cartItems: [
-                        ...state.cartItems.slice(0, index), 
+                        ...state.cartItems.slice(0, index),
+                        newItem,
                         ...state.cartItems.slice(index + 1)
+                    ]
+                }            
+            } else {
+                const item = state.menu.find(el => el.id == action.payload);
+                item.count = 1
+                return {
+                    ...state,
+                    cartItems: [...state.cartItems, item] 
+                }
+            }
+            
+
+        case 'DELETE_FROM_CART':
+            const id = action.payload
+            const idx = state.cartItems.findIndex(item => item.id == id);
+
+            if(idx >= 0){
+                return {
+                    ...state,
+                    cartItems: [
+                        ...state.cartItems.slice(0, idx), 
+                        ...state.cartItems.slice(idx + 1)
                     ] 
                 }
             }
