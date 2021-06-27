@@ -19,4 +19,4 @@ const App = () => {
     )
 }
 
-export default WithRestoService()(App);
+export default App;

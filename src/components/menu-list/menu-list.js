@@ -2,12 +2,23 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import WithRestoService from '../hoc';
 import MenuListItem from '../menu-list-item';
-import { menuLoaded, menuRequested, menuError } from '../../actions';
+import { menuLoaded, cartAdded, menuRequested, menuError } from '../../actions';
 import Spinner from '../spinner/'
 import Error from '../error/'
 import './menu-list.scss';
 
-const MenuList = ({ RestoService, setMenuToStore, setLoading, setError, menuItems, loading, error }) => { // классовый компонент ниже в комментах
+const MenuList = ({ 
+    RestoService, 
+    setMenuToStore, 
+    addCartItemsToStore, 
+    setLoading, 
+    setError, 
+    menuItems, 
+    loading, 
+    error 
+}) => { // классовый компонент ниже в комментах
+
+
     useEffect(() => {
         setLoading();
         RestoService.getMenuItems()
@@ -19,14 +30,17 @@ const MenuList = ({ RestoService, setMenuToStore, setLoading, setError, menuItem
         return <Spinner />
     }
     if (error) {
-        return <Error />
+        return <Error/>
     }
 
     return (
         <ul className="menu__list">
             {menuItems.map(item => {
                 return (
-                    <MenuListItem key={item.id} menuItem={item} />
+                    <MenuListItem 
+                        key={item.id} 
+                        menuItem={item} 
+                        onAddToCart={() => addCartItemsToStore(item.id)}/>
                 )
             })}
         </ul>
@@ -44,13 +58,15 @@ const mapStateToProps = (state) => { // получаем из стора (ред
 const mapDispatchToProps = (dispatch) => { //записываем в стор с помощью фции  setMenuTStore
     return {
         setMenuToStore: (newState) => dispatch(menuLoaded(newState)),
+        addCartItemsToStore: (id) => dispatch(cartAdded(id)),
         setLoading: () => dispatch(menuRequested()),
         setError: () => dispatch(menuError())
     }
 }
 // const mapDispatchToProps = {
 //     setMenuToStore: menuLoaded, //передаем простоназвание action-creator'a
-//     setLoading: menuRequested
+//     addCartItemsToStore: cartAdded,
+//     setLoading: menuRequested,
 //     setError: menuError
 // }
 
