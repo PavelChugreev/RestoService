@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { menuLoaded, cartDeleted } from '../../actions';
+import WithRestoService from '../hoc';
 import './cart-table.scss';
 
-const CartTable = ({cartItems, deleteItemFromCartItems}) => {
+const CartTable = ({RestoService, cartItems, deleteItemFromCartItems}) => {
 
     const items = cartItems.map(item => {
         return (
@@ -25,9 +26,25 @@ const CartTable = ({cartItems, deleteItemFromCartItems}) => {
             <div className="cart__list">    
                 {items}
             </div>
+            <button 
+                className="cart__order"
+                onClick={() => RestoService.postCart(createOrder(cartItems))}
+            >Отправить заказ</button>
         </>
     );
 };
+
+const createOrder = (cartItems) => {
+    const order = cartItems.map(item => {
+        return {
+            product_id: item.id,
+            title: item.title,
+            conunt: item.count
+        }
+    })
+
+    return order
+}
 
 const mapStateToProps = (state) => { // получаем из стора (редакс -конеект)
     return {
@@ -41,4 +58,4 @@ const mapDispatchToProps = (dispatch) => { //записываем в стор с
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartTable);
+export default WithRestoService()(connect(mapStateToProps, mapDispatchToProps)(CartTable));

@@ -2,6 +2,7 @@
     padding-top: 120px;
     padding-bottom: 50px;
     min-height: 100vh;
+    text-align: center;
     &__title {
         font-size: 36px;
         color: #fff;
@@ -44,6 +45,14 @@
         font-size: 20px;
         border-radius: 100%;
         border: 1px solid #fff;
+        cursor: pointer;
+    }
+    &__order {
+        width: 100px;
+        height: 50px;
+        margin-top: 10px;
+        outline: none;
+        border-radius: 7px;
         cursor: pointer;
     }
 }
