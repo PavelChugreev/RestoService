@@ -18,7 +18,6 @@ const MenuList = ({
     error 
 }) => { // классовый компонент ниже в комментах
 
-
     useEffect(() => {
         setLoading();
         RestoService.getMenuItems()

@@ -8,7 +8,7 @@ const MenuListItem = ({menuItem, onAddToCart}) => {
 
     return (
         <li className="menu__item">
-            <Link to={`/${id}`}>
+            <Link to={`${id}`}>
                 <div className="menu__title">{title}</div>
                 <img className="menu__img" src={url} alt={title}></img>
                 <div className="menu__category">Category: <span>{category}</span></div>
